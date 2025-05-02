@@ -1,6 +1,6 @@
 package br.com.alura.codechella.naousar.controller.controller;
 
-import br.com.alura.codechella.naousar.model.model.Usuario;
+import br.com.alura.codechella.infra.persistence.UsuarioEntity;
 import br.com.alura.codechella.naousar.service.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UsuarioController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid Usuario usuario, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity cadastrar(@RequestBody @Valid UsuarioEntity usuario, UriComponentsBuilder uriBuilder) {
         service.cadastrarUsuario(usuario);
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
 
@@ -32,7 +32,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listar() {
+    public ResponseEntity<List<UsuarioEntity>> listar() {
         return ResponseEntity.ok(service.listarTodos());
     }
 
